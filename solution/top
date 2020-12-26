@@ -6,4 +6,7 @@
 
 # here comes your solution
 # e.g.
-cut -d' ' -f1 $2 | head -$1 | cat -n
+
+z=$(awk '{print $1,$9}' $2 | grep '3..$' | cut -d' ' -f1 | sort | uniq -c | sort -n -r | head -$1 | awk '{sum+=$1}END{print sum}')
+awk '{print $1,$9}' $2 | grep '3..$' | cut -d' ' -f1 | sort | uniq -c | sort -n -r | head -$1| 
+awk '{print NR". "$2" - "$1" - " sprintf("%.1f" ,$1/'"$z"*100') "%"}'
